@@ -1,43 +1,44 @@
 package de.schichttauschen.web.config;
 
-import org.springframework.context.annotation.Bean;
+import de.schichttauschen.web.data.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final UserRepository userRepository;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/css/*", "/js/*", "/img/*").permitAll()
+                .antMatchers("/css/*", "/js/*", "/img/*").permitAll()
+
+                .antMatchers("/h2-console", "/h2-console/*").permitAll()
+                .and().csrf().ignoringAntMatchers("/h2-console/**")
+                .and().headers().frameOptions().sameOrigin()
+
+                .and().authorizeRequests()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
+
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", RequestMethod.GET.name()))
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll();
-    }
-
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
     }
 }
