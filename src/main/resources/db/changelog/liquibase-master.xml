@@ -6,6 +6,10 @@
     <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
     <property name="uuid_function" value="random_uuid()" dbms="h2"/>
 
+    <changeSet id="enable-uuid-extension" author="janxb" dbms="postgresql">
+        <sql>CREATE EXTENSION "uuid-ossp"</sql>
+    </changeSet>
+
     <changeSet id="initial" author="janxb">
         <createTable tableName="location">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
