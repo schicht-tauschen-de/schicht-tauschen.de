@@ -1,12 +1,12 @@
 package de.schichttauschen.web.data.repository;
 
-import de.schichttauschen.web.data.entity.User;
+import de.schichttauschen.web.data.entity.Account;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, UUID> {
-    User findByLogin(String login);
+public interface AccountRepository extends CrudRepository<Account, UUID> {
+    Account findByLogin(String login);
 }

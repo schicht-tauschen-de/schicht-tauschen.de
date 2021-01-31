@@ -1,6 +1,6 @@
 package de.schichttauschen.web.data.vo;
 
-import de.schichttauschen.web.data.entity.User;
+import de.schichttauschen.web.data.entity.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
+    private Account account;
 
-    public UserPrincipal(User user) {
-        this.user = user;
+    public UserPrincipal(Account account) {
+        this.account = account;
     }
 
     @Override
@@ -22,12 +22,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return account.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return account.getLogin();
     }
 
     @Override

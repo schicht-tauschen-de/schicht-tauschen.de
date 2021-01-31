@@ -1,7 +1,7 @@
 package de.schichttauschen.web.service;
 
-import de.schichttauschen.web.data.entity.User;
-import de.schichttauschen.web.data.repository.UserRepository;
+import de.schichttauschen.web.data.entity.Account;
+import de.schichttauschen.web.data.repository.AccountRepository;
 import de.schichttauschen.web.data.vo.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByLogin(username);
-        if (user == null) {
+        Account account = accountRepository.findByLogin(username);
+        if (account == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new UserPrincipal(user);
+        return new UserPrincipal(account);
     }
 }

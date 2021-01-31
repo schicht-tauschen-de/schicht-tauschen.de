@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-public class User {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

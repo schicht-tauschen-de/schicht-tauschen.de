@@ -1,6 +1,6 @@
 package de.schichttauschen.web.config;
 
-import de.schichttauschen.web.data.repository.UserRepository;
+import de.schichttauschen.web.data.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @EnableWebSecurity
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

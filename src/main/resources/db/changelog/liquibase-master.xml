@@ -33,7 +33,7 @@
                                  constraintName="fk_job_location"
                                  referencedTableName="location"
                                  referencedColumnNames="id"/>
-        <createTable tableName="user">
+        <createTable tableName="account">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
             </column>
@@ -49,27 +49,27 @@
             <column type="varchar" name="type"/>
             <column type="datetime" name="start_date"/>
             <column type="datetime" name="end_date"/>
-            <column type="uuid" name="from_user">
+            <column type="uuid" name="from_account">
                 <constraints nullable="false"/>
             </column>
-            <column type="uuid" name="to_user">
+            <column type="uuid" name="to_account">
                 <constraints nullable="false"/>
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="offer"
-                                 baseColumnNames="from_user"
-                                 constraintName="fk_offer_user_from"
-                                 referencedTableName="user"
+                                 baseColumnNames="from_account"
+                                 constraintName="fk_offer_account_from"
+                                 referencedTableName="account"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="offer"
-                                 baseColumnNames="to_user"
-                                 constraintName="fk_offer_user_to"
-                                 referencedTableName="user"
+                                 baseColumnNames="to_account"
+                                 constraintName="fk_offer_account_to"
+                                 referencedTableName="account"
                                  referencedColumnNames="id"/>
     </changeSet>
 
     <changeSet id="sample-data" author="janxb">
-        <insert tableName="user">
+        <insert tableName="account">
             <column name="login">test</column>
             <column name="password">{noop}test</column>
         </insert>
