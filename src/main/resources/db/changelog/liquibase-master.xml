@@ -11,27 +11,27 @@
     </changeSet>
 
     <changeSet id="initial" author="janxb">
-        <createTable tableName="location">
+        <createTable tableName="company">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
             </column>
             <column type="varchar" name="name"/>
             <column type="varchar" name="description"/>
         </createTable>
-        <createTable tableName="job">
+        <createTable tableName="department">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
             </column>
             <column type="varchar" name="name"/>
             <column type="varchar" name="description"/>
-            <column type="uuid" name="location_id">
+            <column type="uuid" name="company_id">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="job"
-                                 baseColumnNames="location_id"
-                                 constraintName="fk_job_location"
-                                 referencedTableName="location"
+        <addForeignKeyConstraint baseTableName="department"
+                                 baseColumnNames="company_id"
+                                 constraintName="fk_department_company"
+                                 referencedTableName="company"
                                  referencedColumnNames="id"/>
         <createTable tableName="account">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
@@ -49,20 +49,20 @@
             <column type="varchar" name="type"/>
             <column type="datetime" name="start_date"/>
             <column type="datetime" name="end_date"/>
-            <column type="uuid" name="from_account">
+            <column type="uuid" name="from_account_id">
                 <constraints nullable="false"/>
             </column>
-            <column type="uuid" name="to_account">
+            <column type="uuid" name="to_account_id">
                 <constraints nullable="false"/>
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="offer"
-                                 baseColumnNames="from_account"
+                                 baseColumnNames="from_account_id"
                                  constraintName="fk_offer_account_from"
                                  referencedTableName="account"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="offer"
-                                 baseColumnNames="to_account"
+                                 baseColumnNames="to_account_id"
                                  constraintName="fk_offer_account_to"
                                  referencedTableName="account"
                                  referencedColumnNames="id"/>
