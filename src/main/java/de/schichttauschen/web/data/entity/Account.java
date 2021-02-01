@@ -3,6 +3,7 @@ package de.schichttauschen.web.data.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -18,4 +19,8 @@ public class Account {
 
     @Column
     private String password;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false)
+    private Set<AccountDepartment> departments;
 }

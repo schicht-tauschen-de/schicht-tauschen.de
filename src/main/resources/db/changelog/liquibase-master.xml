@@ -74,4 +74,27 @@
             <column name="password">{noop}test</column>
         </insert>
     </changeSet>
+
+    <changeSet id="add-account-department-table" author="janxb">
+        <createTable tableName="account_department">
+            <column type="uuid" name="account_id">
+                <constraints primaryKey="true"/>
+            </column>
+            <column type="uuid" name="department_id">
+                <constraints primaryKey="true"/>
+            </column>
+            <column type="varchar" name="email"/>
+            <column type="varchar" name="employee_number"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="account_department"
+                                 baseColumnNames="account_id"
+                                 constraintName="fk_account_department_account"
+                                 referencedTableName="account"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="account_department"
+                                 baseColumnNames="department_id"
+                                 constraintName="fk_account_department_department"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 </databaseChangeLog>
