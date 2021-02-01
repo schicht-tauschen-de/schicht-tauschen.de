@@ -97,4 +97,16 @@
                                  referencedTableName="department"
                                  referencedColumnNames="id"/>
     </changeSet>
+
+    <changeSet id="account-activation" author="janxb">
+        <addColumn tableName="account">
+            <column type="boolean" name="active"/>
+            <column type="uuid" name="pending_action_key"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="account-login-unique-contraint" author="janxb">
+        <addUniqueConstraint tableName="account" columnNames="login"/>
+        <addUniqueConstraint tableName="account" columnNames="email"/>
+    </changeSet>
 </databaseChangeLog>
