@@ -12,14 +12,14 @@ import java.io.IOException;
 
 @Component
 public class DomainRedirectFilter implements Filter {
-    @Value("${app.domain}")
+    @Value("${app.domain:#{null}}")
     private String appDomain;
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
-        if (!httpRequest.getServerName().equalsIgnoreCase(appDomain)) {
+        if (appDomain != null && !httpRequest.getServerName().equalsIgnoreCase(appDomain)) {
             httpResponse.sendRedirect(
                     "https://"
                             + appDomain
