@@ -13,17 +13,19 @@ import java.util.UUID;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountRegistrationService {
     private final AccountRepository accountRepository;
+    private final EmailSenderService emailSenderService;
 
     public boolean register(AccountRegistration accountRegistration) {
         if (accountRepository.existsByLoginOrEmail(accountRegistration.getLogin(), accountRegistration.getEmail()))
             return false;
-        accountRepository.save(Account.builder()
+        var account = accountRepository.save(Account.builder()
                 .login(accountRegistration.getLogin())
                 .name(accountRegistration.getName())
                 .email(accountRegistration.getEmail())
                 .pendingActionKey(UUID.randomUUID())
                 .active(false)
                 .build());
+        emailSenderService.sendAccountActivationMail(account);
         return true;
     }
 
