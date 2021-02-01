@@ -15,7 +15,6 @@ public class DomainRedirectFilter implements Filter {
     @Value("${app.domain}")
     private String appDomain;
 
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
