@@ -109,4 +109,11 @@
         <addUniqueConstraint tableName="account" columnNames="login"/>
         <addUniqueConstraint tableName="account" columnNames="email"/>
     </changeSet>
+
+    <changeSet id="sample-data-2" author="janxb">
+        <update tableName="account">
+            <column name="active" value="true"/>
+            <where>login = 'test'</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
