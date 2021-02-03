@@ -36,7 +36,7 @@ public class Account {
     private UUID pendingActionKey;
 
     @Column
-    private boolean active = false;
+    private boolean active;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
