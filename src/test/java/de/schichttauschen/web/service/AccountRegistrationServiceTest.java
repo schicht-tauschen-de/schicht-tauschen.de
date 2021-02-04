@@ -24,23 +24,26 @@ public class AccountRegistrationServiceTest extends AbstractTestNGSpringContextT
         String randomString = UUID.randomUUID().toString();
         Assert.assertFalse(accountRepository.existsByLoginOrEmail(randomString, randomString));
 
+        // register account
         accountRegistrationService.register(AccountRegistration.builder()
                 .email(randomString)
                 .login(randomString)
                 .name(randomString)
                 .build());
 
+        // verify that the account is initially not active
         var account1 = accountRepository.getByLogin(randomString);
         Assert.assertEquals(account1.getEmail(), randomString);
         Assert.assertFalse(account1.isActive());
         Assert.assertNotNull(account1.getPendingActionKey());
 
+        // verify that we can't activate the account with a wrong action key
         Assert.assertFalse(accountRegistrationService.activate(account1.getId(), UUID.randomUUID()));
-
         var account2 = accountRepository.getByLogin(randomString);
         Assert.assertFalse(account2.isActive());
         Assert.assertNotNull(account2.getPendingActionKey());
 
+        // verify that the account is active after we activated it with the correct action key
         Assert.assertTrue(accountRegistrationService.activate(account1.getId(), account1.getPendingActionKey()));
         var account3 = accountRepository.getByLogin(randomString);
         Assert.assertTrue(account3.isActive());
