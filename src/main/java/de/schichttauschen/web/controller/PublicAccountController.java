@@ -1,5 +1,6 @@
 package de.schichttauschen.web.controller;
 
+import de.schichttauschen.web.aspect.RateLimited;
 import de.schichttauschen.web.data.entity.Account;
 import de.schichttauschen.web.data.vo.UserPrincipal;
 import de.schichttauschen.web.data.vo.rest.AccountInfo;
@@ -24,16 +25,19 @@ public class PublicAccountController {
     private final AccountRegistrationService accountRegistrationService;
     private final AuthenticationManager authenticationManager;
 
+    @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
     @PostMapping("/register")
-    public boolean register(@RequestBody AccountRegistration accountRegistration) {
+    public Boolean register(@RequestBody AccountRegistration accountRegistration) {
         return accountRegistrationService.register(accountRegistration);
     }
 
+    @RateLimited(requests = 3, interval = RateLimited.Interval.Minutes)
     @GetMapping("/activate/{accountId}/{activationKey}")
-    public boolean activate(@PathVariable UUID accountId, @PathVariable UUID activationKey) {
+    public Boolean activate(@PathVariable UUID accountId, @PathVariable UUID activationKey) {
         return accountRegistrationService.activate(accountId, activationKey);
     }
 
+    @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
     @PostMapping("/login")
     public LoginResponse login(@RequestParam String login, @RequestParam String password) {
         try {
