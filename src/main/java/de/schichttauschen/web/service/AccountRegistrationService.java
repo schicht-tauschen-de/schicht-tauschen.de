@@ -5,6 +5,7 @@ import de.schichttauschen.web.data.repository.AccountRepository;
 import de.schichttauschen.web.data.vo.rest.AccountRegistration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class AccountRegistrationService {
     private final AccountRepository accountRepository;
     private final EmailSenderService emailSenderService;
+    private final PasswordEncoder passwordEncoder;
 
     public boolean register(AccountRegistration accountRegistration) {
         if (accountRepository.existsByLoginOrEmail(accountRegistration.getLogin(), accountRegistration.getEmail()))
@@ -23,6 +25,7 @@ public class AccountRegistrationService {
                 .name(accountRegistration.getName())
                 .email(accountRegistration.getEmail())
                 .pendingActionKey(UUID.randomUUID())
+                .password(passwordEncoder.encode(UUID.randomUUID().toString()))
                 .active(false)
                 .build());
         emailSenderService.sendAccountActivationMail(account);
