@@ -25,7 +25,7 @@ public class AccountRegistrationService {
                 .name(accountRegistration.getName())
                 .email(accountRegistration.getEmail())
                 .pendingActionKey(UUID.randomUUID())
-                .password(passwordEncoder.encode(UUID.randomUUID().toString()))
+                .password(passwordEncoder.encode(accountRegistration.getPassword()))
                 .active(false)
                 .build());
         emailSenderService.sendAccountActivationMail(account);
