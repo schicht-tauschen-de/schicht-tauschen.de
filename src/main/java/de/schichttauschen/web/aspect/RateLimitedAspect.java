@@ -24,8 +24,9 @@ public class RateLimitedAspect {
 
     @Around("@annotation(rateLimited)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint, RateLimited rateLimited) throws Throwable {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
+        ServletRequestAttributes requestAttributes = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+        HttpServletRequest request = requestAttributes.getRequest();
+        HttpServletResponse response = requestAttributes.getResponse();
         String remoteAddr = request.getRemoteAddr();
         String endpoint = joinPoint.getSignature().toString();
 
