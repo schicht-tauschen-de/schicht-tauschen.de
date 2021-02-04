@@ -15,14 +15,19 @@
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
             </column>
-            <column type="varchar" name="name"/>
+            <column type="varchar" name="name">
+                <constraints nullable="false"/>
+            </column>
             <column type="varchar" name="description"/>
         </createTable>
+
         <createTable tableName="department">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
             </column>
-            <column type="varchar" name="name"/>
+            <column type="varchar" name="name">
+                <constraints nullable="false"/>
+            </column>
             <column type="varchar" name="description"/>
             <column type="uuid" name="company_id">
                 <constraints nullable="false"/>
@@ -33,15 +38,35 @@
                                  constraintName="fk_department_company"
                                  referencedTableName="company"
                                  referencedColumnNames="id"/>
+
         <createTable tableName="account">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
             </column>
-            <column type="varchar" name="login"/>
-            <column type="varchar" name="password"/>
-            <column type="varchar" name="name"/>
-            <column type="varchar" name="email"/>
+            <column type="varchar" name="login">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column type="varchar" name="password">
+                <constraints nullable="false"/>
+            </column>
+            <column type="varchar" name="name">
+                <constraints nullable="false"/>
+            </column>
+            <column type="varchar" name="email">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column type="boolean" name="active">
+                <constraints nullable="false"/>
+            </column>
+            <column type="uuid" name="pending_action_key"/>
         </createTable>
+        <createIndex tableName="account" indexName="idx_account_login">
+            <column name="login"/>
+        </createIndex>
+        <createIndex tableName="account" indexName="idx_account_email">
+            <column name="email"/>
+        </createIndex>
+
         <createTable tableName="offer">
             <column type="uuid" name="id" defaultValueComputed="${uuid_function}">
                 <constraints primaryKey="true"/>
@@ -66,16 +91,7 @@
                                  constraintName="fk_offer_account_to"
                                  referencedTableName="account"
                                  referencedColumnNames="id"/>
-    </changeSet>
 
-    <changeSet id="sample-data" author="janxb">
-        <insert tableName="account">
-            <column name="login">test</column>
-            <column name="password">{noop}test</column>
-        </insert>
-    </changeSet>
-
-    <changeSet id="add-account-department-table" author="janxb">
         <createTable tableName="account_department">
             <column type="uuid" name="account_id">
                 <constraints primaryKey="true"/>
@@ -98,22 +114,13 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="account-activation" author="janxb">
-        <addColumn tableName="account">
-            <column type="boolean" name="active"/>
-            <column type="uuid" name="pending_action_key"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="account-login-unique-contraint" author="janxb">
-        <addUniqueConstraint tableName="account" columnNames="login"/>
-        <addUniqueConstraint tableName="account" columnNames="email"/>
-    </changeSet>
-
-    <changeSet id="sample-data-2" author="janxb">
-        <update tableName="account">
-            <column name="active" value="true"/>
-            <where>login = 'test'</where>
-        </update>
+    <changeSet id="sample-data" author="janxb">
+        <insert tableName="account">
+            <column name="login">test</column>
+            <column name="name">Test User</column>
+            <column name="email">test@example.com</column>
+            <column name="password">{noop}test</column>
+            <column name="active">true</column>
+        </insert>
     </changeSet>
 </databaseChangeLog>
