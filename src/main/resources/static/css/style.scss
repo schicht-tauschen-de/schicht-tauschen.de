@@ -1,0 +1,269 @@
+@import './_bootstrap/scss/functions';
+@import './_bootstrap/scss/variables';
+
+$enable-responsive-font-sizes: true;
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1920px
+);
+
+
+@import './_bootstrap/scss/bootstrap-reboot';
+@import './_bootstrap/scss/utilities';
+@import './_bootstrap/scss/mixins';
+@import './_bootstrap/scss/type';
+@import './_bootstrap/scss/bootstrap-grid';
+@import './_bootstrap/scss/images';
+@import './_bootstrap/scss/forms';
+@import './_bootstrap/scss/nav';
+@import './_bootstrap/scss/navbar';
+@import './_bootstrap/scss/breadcrumb';
+@import './_bootstrap/scss/button-group';
+@import './_bootstrap/scss/buttons';
+@import './_bootstrap/scss/alert';
+
+
+/* ==========================================================================
+   Colors
+   ========================================================================== */
+
+$primary-color: #00adb9;
+$primary-background-color: #dedede;
+$font-color: #5f5c52;
+
+/* ==========================================================================
+   Fonts
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+/* ==========================================================================
+   Font-Weight
+   ========================================================================== */
+
+$font-light: 300;
+$font-normal: 400;
+$font-bold: 700;
+
+/* ==========================================================================
+   Font-Size
+   ========================================================================== */
+
+$font-size-normal: 1.3125rem;
+$font-size-smaller: ($font-size-normal * 0.8);
+$font-size-small: ($font-size-smaller * 0.8);
+$font-size-bigger: ($font-size-normal * 1.2);
+$font-size-big: ($font-size-bigger * 1.2);
+
+$h1-size: 2.25rem;
+$h2-size: (2.8rem * 0.7);
+$h3-size: ($h2-size * 0.7);
+
+$h1-small-size: ($h1-size * 0.8);
+$h2-small-size: ($h2-size * 0.8);
+$h3-small-size: ($h3-size * 0.8);
+
+/* ==========================================================================
+   Shadow
+   ========================================================================== */
+
+$z0: none;
+$z1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+$z2: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+$z3: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+$z4: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+$z5: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+
+
+/* ==========================================================================
+   Spacing
+   ========================================================================== */
+
+.frame-space-before- {
+    &extra-small { 	margin-top: 1rem; }
+    &small {  		margin-top: 2rem; }
+    &medium {  		margin-top: 3rem; }
+    &large {  		margin-top: 4rem; }
+    &extra-large { 	margin-top: 5rem; }
+}
+
+.frame-space-after- {
+    &extra-small { 	margin-bottom: 1rem; }
+    &small {  		margin-bottom: 2rem; }
+    &medium {		margin-bottom: 3rem; }
+    &large {  		margin-bottom: 4rem; }
+    &extra-large { 	margin-bottom: 5rem; }
+}
+
+/* ==========================================================================
+   General
+   ========================================================================== */
+
+html,
+body {
+    height: 100%;
+    background-color: #333;
+}
+
+body {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: #fff;
+    @include font-size($font-size-normal);
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+}
+
+.cover-container {
+    max-width: 45em;
+}
+
+/* ==========================================================================
+   Button/Link Default
+   ========================================================================== */
+/* Links */
+a,
+a:focus,
+a:hover {
+    color: #fff;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: #333;
+    text-shadow: none; /* Prevent inheritance from `body` */
+    background-color: #fff;
+    border: .05rem solid #fff;
+}
+
+/* ==========================================================================
+   Textsizing
+   ========================================================================== */
+
+.bigger-text {
+    @include font-size($font-size-big);
+}
+
+.big-text {
+    @include font-size($font-size-bigger);
+}
+
+.small-text {
+    @include font-size($font-size-smaller);
+}
+
+.smaller-text {
+    @include font-size($font-size-small);
+}
+
+.light-text {
+    font-weight: $font-light;
+}
+
+h1 {
+    @include font-size($h1-size);
+}
+
+.small-h1 {
+    @include font-size($h1-small-size);
+    font-weight: $font-light;
+}
+
+h2 {
+    @include font-size($h2-size);
+}
+
+.small-h2 {
+    @include font-size($h2-small-size);
+    font-weight: $font-light;
+}
+
+/* ==========================================================================
+   Header Navigation
+   ========================================================================== */
+
+.masthead {
+    margin-bottom: 2rem;
+}
+
+.masthead-brand {
+    margin-bottom: 0;
+}
+
+.nav-masthead .nav-link {
+    padding: .25rem 0;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    background-color: transparent;
+    border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+    margin-left: 1rem;
+}
+
+.nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+@media (min-width: 48em) {
+    .masthead-brand {
+        float: left;
+    }
+
+    .nav-masthead {
+        float: right;
+    }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.mastfoot {
+    color: rgba(255, 255, 255, .5);
+}
+
+
+/* ==========================================================================
+   Cover
+   ========================================================================== */
+.cover {
+    padding: 0 1.5rem;
+}
+
+.cover .btn-lg {
+    padding: .75rem 1.25rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================================
+   Login/Registration
+   ========================================================================== */
+
+.login,
+.registration {
+    .btn-registration,
+    .btn-login {
+        display: flex;
+        margin-left: auto;
+    }
+}
