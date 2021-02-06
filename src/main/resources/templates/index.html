@@ -11,15 +11,68 @@
             </div>
         </header>
 
-        <main class="inner cover" role="main">
+        <main class="inner cover" role="main" id="vueStartPage">
             <h1 class="cover-heading">Das neue Portal für Schichtarbeiter</h1>
-            <p class="lead">Du arbeitest im Schichtdienst und möchtest ab und zu deine Schichten mit Kollegen tauschen?
-                Dann bist du hier genau richtig! Schon bald findest du hier ein Portal zum Austausch mit deinen
-                Arbeitskollegen.
-            </p>
-            <p class="lead">
-                Also: Schau demnächst wieder vorbei und sei als einer der Ersten dabei!
-            </p>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="lead">Du arbeitest im Schichtdienst und möchtest ab und zu deine Schichten mit Kollegen tauschen?
+                            Dann bist du hier genau richtig! Schon bald findest du hier ein Portal zum Austausch mit deinen
+                            Arbeitskollegen.
+                        </p>
+                        <p class="lead">
+                            Also: Schau demnächst wieder vorbei und sei als einer der Ersten dabei!
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <div class="alert" :class="getMessageClass" role="alert" v-if="message != null" v-html="message"></div>
+                        <div class="login" v-if="!isRegistration">
+                            <h2>Login</h2>
+                            <form v-on:submit.prevent="doLogin">
+                                <div class="form-group">
+                                    <label >Username</label>
+                                    <input v-model="userName" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label >Password</label>
+                                    <input type="password" v-model="password" class="form-control" >
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-login">Submit</button>
+                            </form>
+                            <p>Du hast noch keinen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('registration')">registrieren</a></p>
+                        </div>
+                        <div class="registration" v-if="isRegistration">
+                            <h2>Registration</h2>
+                            <div class="alert alert-danger" role="alert" v-if="formValidationErrors.length">
+                                <ul>
+                                    <li v-for="error in formValidationErrors">{{error}}</li>
+                                </ul>
+                            </div>
+                            <form v-on:submit.prevent="doRegistration">
+                                <div class="form-group">
+                                    <label >Full Name</label>
+                                    <input v-model="fullName" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label >Username</label>
+                                    <input v-model="userName" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label >Email address</label>
+                                    <input v-model="email" type="email" class="form-control" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group">
+                                    <label >Password</label>
+                                    <input type="password" v-model="password" class="form-control" >
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-registration">Submit</button>
+                            </form>
+                            <p>Du hast bereits einen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('login')">einloggen</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer class="mastfoot mt-auto">
