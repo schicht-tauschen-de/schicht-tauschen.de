@@ -5,8 +5,10 @@ import de.schichttauschen.web.data.entity.Account;
 import de.schichttauschen.web.data.vo.UserPrincipal;
 import de.schichttauschen.web.data.vo.rest.AccountInfo;
 import de.schichttauschen.web.data.vo.rest.AccountRegistration;
+import de.schichttauschen.web.data.vo.rest.BooleanResponse;
 import de.schichttauschen.web.data.vo.rest.LoginResponse;
 import de.schichttauschen.web.service.AccountRegistrationService;
+import de.schichttauschen.web.service.BooleanResponseBuilderFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,17 +26,28 @@ import java.util.UUID;
 public class PublicAccountController {
     private final AccountRegistrationService accountRegistrationService;
     private final AuthenticationManager authenticationManager;
+    private final BooleanResponseBuilderFactory booleanResponseBuilderFactory;
 
     @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
     @PostMapping("/register")
-    public Boolean register(@RequestBody AccountRegistration accountRegistration) {
-        return accountRegistrationService.register(accountRegistration);
+    public BooleanResponse register(@RequestBody AccountRegistration accountRegistration) {
+        boolean status = accountRegistrationService.register(accountRegistration);
+        return booleanResponseBuilderFactory.get()
+                .status(status)
+                .trueMessage("action.register.success")
+                .falseMessage("action.register.failed")
+                .build();
     }
 
     @RateLimited(requests = 3, interval = RateLimited.Interval.Minutes)
     @GetMapping("/activate/{accountId}/{activationKey}")
-    public Boolean activate(@PathVariable UUID accountId, @PathVariable UUID activationKey) {
-        return accountRegistrationService.activate(accountId, activationKey);
+    public BooleanResponse activate(@PathVariable UUID accountId, @PathVariable UUID activationKey) {
+        boolean status = accountRegistrationService.activate(accountId, activationKey);
+        return booleanResponseBuilderFactory.get()
+                .status(status)
+                .trueMessage("action.activate.success")
+                .falseMessage("action.activate.failed")
+                .build();
     }
 
     @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
