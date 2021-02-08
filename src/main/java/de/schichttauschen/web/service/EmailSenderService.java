@@ -19,11 +19,11 @@ public class EmailSenderService {
     @Value("${app.mail.from}")
     private String mailFrom;
 
-    @Value("${app.mail.enabled}")
-    private Boolean isMailEnabled;
+    @Value("${spring.mail.host}")
+    private String smtpHost;
 
     private boolean isMailEnabled() {
-        if (!isMailEnabled) {
+        if (smtpHost == null || smtpHost.equals("null")) {
             log.warn("Mail sending is not enabled!");
             return false;
         } else return true;
