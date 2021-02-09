@@ -1,6 +1,7 @@
 package de.schichttauschen.web.service;
 
 import de.schichttauschen.web.data.entity.Account;
+import de.schichttauschen.web.data.vo.TemplateContext;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmailSenderService {
     private final JavaMailSender emailSender;
+    private final EmailTemplateParser emailTemplateParser;
+    private final TranslationService translationService;
+    private final HttpRequestService httpRequestService;
+
     private final Logger log = LoggerFactory.getLogger(EmailSenderService.class);
 
     @Value("${app.mail.from}")
@@ -38,8 +43,16 @@ public class EmailSenderService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(mailFrom);
         message.setTo(account.getEmail());
-        message.setSubject("Please activate your account");
-        message.setText("Activation link: foobarbaz");
+        message.setSubject(translationService.get("mail.activate.subject"));
+        message.setText(emailTemplateParser.parse("account-activate",
+                TemplateContext.builder()
+                        .parameter("name", account.getName())
+                        .parameter("email", account.getEmail())
+                        .parameter("activationLink",
+                                httpRequestService.getFullHostname()
+                                        + "/api/public/account/activate/"
+                                        + account.getId() + "/" + account.getPendingActionKey())
+                        .build()));
         emailSender.send(message);
         return true;
     }

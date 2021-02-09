@@ -1,0 +1,9 @@
+Hallo [(${name})],
+
+Mit deiner Email-Adresse ([(${email})]) wurde auf schicht-tauschen.de ein Account angelegt.
+Bitte bestätige deine Adresse mit einem Klick auf den folgenden Link:
+
+[(${activationLink})]
+
+Liebe Grüße,
+Dein schicht-tauschen.de Team
