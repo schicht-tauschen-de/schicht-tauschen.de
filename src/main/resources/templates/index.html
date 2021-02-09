@@ -13,9 +13,9 @@
     <main id="vueStartPage" class="startpage" v-cloak>
         <article class="container-content">
             <div class="container">
-                <h1>Das neue Portal für Schichtarbeiter</h1>
                 <div class="row">
                     <div class="col-5">
+                        <h1>Das neue Portal für Schichtarbeiter</h1>
                         <p class="lead">Du arbeitest im Schichtdienst und möchtest ab und zu deine Schichten mit Kollegen tauschen?
                             Dann bist du hier genau richtig! Schon bald findest du hier ein Portal zum Austausch mit deinen
                             Arbeitskollegen.
@@ -40,7 +40,7 @@
                                     <label >Password</label>
                                     <input type="password" v-model="password" class="form-control" >
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-login">Submit</button>
+                                <button type="submit" class="button button-primary button-login">Submit</button>
                             </form>
                             <p>Du hast noch keinen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('registration')">registrieren</a></p>
                         </div>
@@ -68,7 +68,7 @@
                                     <label >Password</label>
                                     <input type="password" v-model="password" class="form-control" >
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-registration">Submit</button>
+                                <button type="submit" class="button button-primary button-registration">Submit</button>
                             </form>
                             <p>Du hast bereits einen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('login')">einloggen</a></p>
                         </div>

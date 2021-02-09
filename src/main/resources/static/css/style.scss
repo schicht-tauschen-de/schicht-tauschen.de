@@ -83,7 +83,7 @@ $z5: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 
    ========================================================================== */
 
 [v-cloak] {
-    display: none;
+    display: none !important;
 }
 
 /* ==========================================================================
@@ -272,6 +272,10 @@ h2 {
     align-items: center;
 }
 
+/* ==========================================================================
+   Article
+   ========================================================================== */
+
 .container-content {
     background-color: rgba(0,0,0,0.6);
     width: 100%;
@@ -287,6 +291,7 @@ h2 {
     width: 2px;
     transform: rotate(20deg);
     background-color: #fff;
+    margin: 0 auto;
 }
 
 /* ==========================================================================
@@ -295,8 +300,8 @@ h2 {
 
 .login,
 .registration {
-    .btn-registration,
-    .btn-login {
+    .button-registration,
+    .button-login {
         display: flex;
         margin-left: auto;
     }
