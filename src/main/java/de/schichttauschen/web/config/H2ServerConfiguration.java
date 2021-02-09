@@ -25,7 +25,7 @@ public class H2ServerConfiguration {
     /**
      * TCP connection to connect with SQL clients to the embedded h2 database.
      * <p>
-     * Connect to "jdbc:h2:tcp://localhost:9092/mem:testdb", username "sa", password empty.
+     * Connect to "jdbc:h2:tcp://localhost:9092/mem:schicht-tauschen", username "sa", password empty.
      */
     @Bean
     @ConditionalOnExpression("${h2.tcp.enabled:false}")
@@ -36,7 +36,7 @@ public class H2ServerConfiguration {
     /**
      * Web console for the embedded h2 database.
      * <p>
-     * Go to http://localhost:8082 and connect to the database "jdbc:h2:mem:testdb", username "sa", password empty.
+     * Go to http://localhost:8082 and connect to the database "jdbc:h2:mem:schicht-tauschen", username "sa", password empty.
      */
     @Bean
     @ConditionalOnExpression("${h2.web.enabled:true}")

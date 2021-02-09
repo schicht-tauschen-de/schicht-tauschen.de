@@ -24,8 +24,7 @@ public class DomainRedirectFilter implements Filter {
                     "https://"
                             + appDomain
                             + httpRequest.getRequestURI()
-                            + (StringUtils.isNotEmpty(httpRequest.getQueryString()) ? "?" + httpRequest.getQueryString() : Strings.EMPTY))
-            ;
+                            + (StringUtils.isNotEmpty(httpRequest.getQueryString()) ? "?" + httpRequest.getQueryString() : Strings.EMPTY));
         } else filterChain.doFilter(httpRequest, httpResponse);
     }
 }
