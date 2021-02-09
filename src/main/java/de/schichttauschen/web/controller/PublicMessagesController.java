@@ -13,7 +13,7 @@ import java.util.Properties;
 
 @RestController
 public class PublicMessagesController {
-    private final static Map<String, String> messages = new HashMap<>();
+    private final Map<String, String> messages = new HashMap<>();
 
     @SneakyThrows
     @PostConstruct
