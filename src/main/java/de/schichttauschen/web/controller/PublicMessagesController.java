@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -17,8 +19,12 @@ public class PublicMessagesController {
     @PostConstruct
     private void loadMessages() {
         var properties = new Properties();
-        properties.load(this.getClass().getResourceAsStream("/messages.properties"));
-        properties.keySet().stream().map(Object::toString).forEach(key -> messages.put(key, properties.getProperty(key)));
+        properties.load(new InputStreamReader(
+                this.getClass().getResourceAsStream("/messages.properties"),
+                StandardCharsets.UTF_8));
+        properties.keySet().stream()
+                .map(Object::toString)
+                .forEach(key -> messages.put(key, properties.getProperty(key)));
     }
 
     @GetMapping("/api/public/messages")
