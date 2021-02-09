@@ -33,11 +33,11 @@
                             <h2>Login</h2>
                             <form v-on:submit.prevent="doLogin">
                                 <div class="form-group">
-                                    <label >Username</label>
+                                    <label th:text="#{login}">Username</label>
                                     <input v-model="userName" type="text" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label >Password</label>
+                                    <label th:text="#{password}">Password</label>
                                     <input type="password" v-model="password" class="form-control" >
                                 </div>
                                 <button type="submit" class="button button-primary button-login">Submit</button>
@@ -53,19 +53,19 @@
                             </div>
                             <form v-on:submit.prevent="doRegistration">
                                 <div class="form-group">
-                                    <label >Full Name</label>
+                                    <label th:text="#{name}">Full Name</label>
                                     <input v-model="fullName" type="text" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label >Username</label>
+                                    <label th:text="#{login}">Username</label>
                                     <input v-model="userName" type="text" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label >Email address</label>
+                                    <label th:text="#{email}">Email address</label>
                                     <input v-model="email" type="email" class="form-control" aria-describedby="emailHelp">
                                 </div>
                                 <div class="form-group">
-                                    <label >Password</label>
+                                    <label th:text="#{password}">Password</label>
                                     <input type="password" v-model="password" class="form-control" >
                                 </div>
                                 <button type="submit" class="button button-primary button-registration">Submit</button>
