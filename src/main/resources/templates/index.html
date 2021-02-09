@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org">
 <div layout:fragment="content">
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand">schicht-tauschen.de</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="#">Home</a>
-                </nav>
-            </div>
-        </header>
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">schicht-tauschen.de</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="#">Home</a>
+            </nav>
+        </div>
+    </header>
 
-        <main class="inner cover" role="main" id="vueStartPage">
-            <h1 class="cover-heading">Das neue Portal für Schichtarbeiter</h1>
-
+    <main id="vueStartPage" class="startpage" v-cloak>
+        <article class="container-content">
             <div class="container">
+                <h1>Das neue Portal für Schichtarbeiter</h1>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                         <p class="lead">Du arbeitest im Schichtdienst und möchtest ab und zu deine Schichten mit Kollegen tauschen?
                             Dann bist du hier genau richtig! Schon bald findest du hier ein Portal zum Austausch mit deinen
                             Arbeitskollegen.
@@ -25,7 +24,10 @@
                             Also: Schau demnächst wieder vorbei und sei als einer der Ersten dabei!
                         </p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-2">
+                        <div class="divider"></div>
+                    </div>
+                    <div class="col-5">
                         <div class="alert" :class="getMessageClass" role="alert" v-if="message != null" v-html="message"></div>
                         <div class="login" v-if="!isRegistration">
                             <h2>Login</h2>
@@ -73,13 +75,11 @@
                     </div>
                 </div>
             </div>
-        </main>
+        </article>
+    </main>
 
-        <footer class="mastfoot mt-auto">
-            <div class="inner">
-                <p>&copy; 2021 by <a href="https://janbrodda.de">Jan Brodda</a>
-            </div>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p class="text-muted">&copy; 2021 by <a href="https://janbrodda.de">Jan Brodda</a>
+    </footer>
 </div>
 </html>
