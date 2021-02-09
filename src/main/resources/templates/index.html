@@ -29,48 +29,39 @@
                     </div>
                     <div class="col-5">
                         <div class="alert" :class="getMessageClass" role="alert" v-if="message != null" v-html="message"></div>
-                        <div class="login" v-if="!isRegistration">
-                            <h2>Login</h2>
-                            <form v-on:submit.prevent="doLogin">
-                                <div class="form-group">
-                                    <label th:text="#{login}">Username</label>
-                                    <input v-model="userName" type="text" class="form-control">
+                        <div class="loginRegistration">
+                            <h2>
+                                <span v-if="!isRegistration">Login</span>
+                                <span v-else>Registrierung</span>
+                            </h2>
+                            <form v-on:submit.prevents="onSubmit">
+                                <div class="form-group" v-if="isRegistration">
+                                    <label for="fullName" th:text="#{name}">Full Name</label>
+                                    <input v-model="fullName" id="fullName" type="text" class="form-control" :class="{ 'is-invalid' : formValidationErrors.fullName }">
+                                    <div class="invalid-feedback" v-if="formValidationErrors.fullName" v-html="formValidationErrors.fullName"></div>
+                                </div>
+                                <div class="form-group" v-if="isRegistration">
+                                    <label for="email" th:text="#{email}">Email address</label>
+                                    <input v-model="email" type="email" class="form-control" id="email" :class="{ 'is-invalid' : formValidationErrors.email }">
+                                    <div class="invalid-feedback" v-if="formValidationErrors.email" v-html="formValidationErrors.email"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label th:text="#{password}">Password</label>
-                                    <input type="password" v-model="password" class="form-control" >
+                                    <label for="userName" th:text="#{login}">Username</label>
+                                    <input v-model="userName" id="userName" type="text" class="form-control" :class="{ 'is-invalid' : formValidationErrors.userName }">
+                                    <div class="invalid-feedback" v-if="formValidationErrors.userName" v-html="formValidationErrors.userName"></div>
                                 </div>
-                                <button type="submit" class="button button-primary button-login">Submit</button>
+                                <div class="form-group">
+                                    <label for="password" th:text="#{password}">Password</label>
+                                    <input type="password" id="password" v-model="password" class="form-control" :class="{ 'is-invalid' : formValidationErrors.password }" >
+                                    <div class="invalid-feedback" v-if="formValidationErrors.password" v-html="formValidationErrors.password"></div>
+                                </div>
+                                <button type="submit" class="button button-primary">
+                                    <span v-if="!isRegistration" th:text="#{form.signIn}"></span>
+                                    <span v-else th:text="#{form.signUp}"></span>
+                                </button>
                             </form>
-                            <p>Du hast noch keinen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('registration')">registrieren</a></p>
-                        </div>
-                        <div class="registration" v-if="isRegistration">
-                            <h2>Registration</h2>
-                            <div class="alert alert-danger" role="alert" v-if="formValidationErrors.length">
-                                <ul>
-                                    <li v-for="error in formValidationErrors">{{error}}</li>
-                                </ul>
-                            </div>
-                            <form v-on:submit.prevent="doRegistration">
-                                <div class="form-group">
-                                    <label th:text="#{name}">Full Name</label>
-                                    <input v-model="fullName" type="text" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label th:text="#{login}">Username</label>
-                                    <input v-model="userName" type="text" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label th:text="#{email}">Email address</label>
-                                    <input v-model="email" type="email" class="form-control" aria-describedby="emailHelp">
-                                </div>
-                                <div class="form-group">
-                                    <label th:text="#{password}">Password</label>
-                                    <input type="password" v-model="password" class="form-control" >
-                                </div>
-                                <button type="submit" class="button button-primary button-registration">Submit</button>
-                            </form>
-                            <p>Du hast bereits einen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('login')">einloggen</a></p>
+                            <p v-if="!isRegistration">Du hast noch keinen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('registration')">registrieren</a></p>
+                            <p v-else>Du hast bereits einen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('login')">einloggen</a></p>
                         </div>
                     </div>
                 </div>
