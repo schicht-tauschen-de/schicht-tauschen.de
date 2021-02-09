@@ -13,10 +13,10 @@ public class TranslationService {
     private final MessageSource messageSource;
 
     public String get(String key) {
-        return get(key, null);
+        return get(key, new Object[0]);
     }
 
-    public String get(String key, Object[] parameters) {
+    public String get(String key, Object... parameters) {
         try {
             return messageSource.getMessage(key, parameters, LocaleContextHolder.getLocale());
         } catch (NoSuchMessageException e) {
