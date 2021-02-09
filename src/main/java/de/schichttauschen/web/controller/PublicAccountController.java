@@ -9,6 +9,7 @@ import de.schichttauschen.web.data.vo.rest.BooleanResponse;
 import de.schichttauschen.web.data.vo.rest.LoginResponse;
 import de.schichttauschen.web.service.AccountRegistrationService;
 import de.schichttauschen.web.service.BooleanResponseBuilderFactory;
+import de.schichttauschen.web.service.TranslationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,7 @@ public class PublicAccountController {
     private final AccountRegistrationService accountRegistrationService;
     private final AuthenticationManager authenticationManager;
     private final BooleanResponseBuilderFactory booleanResponseBuilderFactory;
+    private final TranslationService translationService;
 
     @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
     @PostMapping("/register")
@@ -60,11 +62,13 @@ public class PublicAccountController {
             Account account = ((UserPrincipal) auth.getPrincipal()).getAccount();
             return LoginResponse.builder()
                     .authenticated(true)
+                    .message(translationService.get("action.login.success", account.getName()))
                     .account(AccountInfo.buildFrom(account))
                     .build();
         } catch (BadCredentialsException e) {
             return LoginResponse.builder()
                     .authenticated(false)
+                    .message(translationService.get("action.login.failed"))
                     .build();
         }
     }

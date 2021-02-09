@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LoginResponse {
     private Boolean authenticated;
+    private String message;
     private AccountInfo account;
 }
