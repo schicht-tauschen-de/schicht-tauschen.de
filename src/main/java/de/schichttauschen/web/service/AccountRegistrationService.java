@@ -28,8 +28,7 @@ public class AccountRegistrationService {
                 .password(passwordEncoder.encode(accountRegistration.getPassword()))
                 .active(false)
                 .build());
-        emailSenderService.sendAccountActivationMail(account);
-        return true;
+        return emailSenderService.sendAccountActivationMail(account);
     }
 
     public boolean activate(UUID accountId, UUID activationKey) {
