@@ -38,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and().authorizeRequests().anyRequest().fullyAuthenticated()
 
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+
                 .and().csrf().disable()
 
                 .headers().frameOptions().sameOrigin();
