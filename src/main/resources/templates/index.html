@@ -14,7 +14,7 @@
         <article class="container-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-12 col-md-5">
                         <h1>Das neue Portal für Schichtarbeiter</h1>
                         <p class="lead">Du arbeitest im Schichtdienst und möchtest ab und zu deine Schichten mit Kollegen tauschen?
                             Dann bist du hier genau richtig! Schon bald findest du hier ein Portal zum Austausch mit deinen
@@ -24,10 +24,10 @@
                             Also: Schau demnächst wieder vorbei und sei als einer der Ersten dabei!
                         </p>
                     </div>
-                    <div class="col-2">
+                    <div class="d-none d-sm-block col-md-2">
                         <div class="divider"></div>
                     </div>
-                    <div class="col-5">
+                    <div class="col-12 col-md-5">
                         <div class="alert" :class="getMessageClass" role="alert" v-if="message != null" v-html="message"></div>
                         <div class="loginRegistration">
                             <h2>
