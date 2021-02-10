@@ -266,10 +266,12 @@ h2 {
 .startpage {
     background-image: url(../img/header_image.jpg);
     background-size: cover;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    @include media-breakpoint-up(sm) {
+        height: 100%;
+    }
 }
 
 /* ==========================================================================
