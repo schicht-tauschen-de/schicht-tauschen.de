@@ -93,14 +93,9 @@ vueStartPage = new Vue({
                         email: that.email,
                         password: that.password
                     }),
-                    success: function (isSuccessful) {
-                        that.isError = !isSuccessful;
+                    success: function (data) {
+                        that.isError = !data.status;
                         that.message = data.message;
-                        if(isSuccessful) {
-                            that.message = 'Registrierung erfolgreich. Bitte gucke in dein E-Mail Postfach nach.';
-                        } else {
-                            that.message = 'Registrierung nicht erfolgreich!';
-                        }
                     },
                     error: function() {
                         that.isError = true;

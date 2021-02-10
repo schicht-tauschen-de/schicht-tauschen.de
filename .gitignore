@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/src/main/resources/static/css/_bootstrap/scss/*.css
+/src/main/resources/static/css/_bootstrap/scss/*.css.map
 /src/main/resources/static/css/*.css
 /src/main/resources/static/css/*.css.map
 
