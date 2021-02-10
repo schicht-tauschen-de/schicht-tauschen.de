@@ -34,7 +34,7 @@
                                 <span v-if="!isRegistration">Login</span>
                                 <span v-else>Registrierung</span>
                             </h2>
-                            <form v-on:submit.prevents="onSubmit">
+                            <form v-on:submit.prevent="onSubmit">
                                 <div class="form-group" v-if="isRegistration">
                                     <label for="fullName" th:text="#{name}">Full Name</label>
                                     <input v-model="fullName" id="fullName" type="text" class="form-control" :class="{ 'is-invalid' : formValidationErrors.fullName }">
