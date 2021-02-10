@@ -60,8 +60,8 @@
                                     <span v-else th:text="#{form.signUp}"></span>
                                 </button>
                             </form>
-                            <p v-if="!isRegistration">Du hast noch keinen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('registration')">registrieren</a></p>
-                            <p v-else>Du hast bereits einen Zugang? <br>Dann jetzt <a href="#" v-on:click="changeContext('login')">einloggen</a></p>
+                            <p v-if="!isRegistration">Du hast noch keinen Zugang? <br>Dann jetzt <a href="#" v-on:click.prevent="changeContext('registration')">registrieren</a></p>
+                            <p v-else>Du hast bereits einen Zugang? <br>Dann jetzt <a href="#" v-on:click.prevent="changeContext('login')">einloggen</a></p>
                         </div>
                     </div>
                 </div>
