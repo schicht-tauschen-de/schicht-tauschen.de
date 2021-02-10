@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BooleanResponse {
-    private Boolean status;
+public class RestLoginResponse {
+    private Boolean authenticated;
     private String message;
+    private RestAccountInfo account;
 }

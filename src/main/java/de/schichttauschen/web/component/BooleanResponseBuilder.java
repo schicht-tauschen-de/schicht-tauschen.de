@@ -1,6 +1,6 @@
 package de.schichttauschen.web.component;
 
-import de.schichttauschen.web.data.vo.rest.BooleanResponse;
+import de.schichttauschen.web.data.vo.rest.RestBooleanResponse;
 import de.schichttauschen.web.service.TranslationService;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,8 +22,8 @@ public class BooleanResponseBuilder {
         return status != null ? status : false;
     }
 
-    public BooleanResponse build() {
-        return BooleanResponse.builder()
+    public RestBooleanResponse build() {
+        return RestBooleanResponse.builder()
                 .status(getStatus())
                 .message(getStatus()
                         ? translationService.get(trueMessage, trueParameters)

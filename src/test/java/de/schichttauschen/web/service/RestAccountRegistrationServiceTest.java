@@ -1,7 +1,7 @@
 package de.schichttauschen.web.service;
 
 import de.schichttauschen.web.data.repository.AccountRepository;
-import de.schichttauschen.web.data.vo.rest.AccountRegistration;
+import de.schichttauschen.web.data.vo.rest.RestAccountRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import java.util.UUID;
 
 @SpringBootTest
-public class AccountRegistrationServiceTest extends AbstractTestNGSpringContextTests {
+public class RestAccountRegistrationServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private AccountRegistrationService accountRegistrationService;
@@ -31,7 +31,7 @@ public class AccountRegistrationServiceTest extends AbstractTestNGSpringContextT
         Assert.assertFalse(accountRepository.existsByLoginOrEmail(randomString, randomString));
 
         // register account
-        accountRegistrationService.register(AccountRegistration.builder()
+        accountRegistrationService.register(RestAccountRegistration.builder()
                 .email(randomString)
                 .login(randomString)
                 .name(randomString)

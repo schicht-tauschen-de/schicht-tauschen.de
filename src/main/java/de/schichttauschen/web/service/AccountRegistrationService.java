@@ -2,7 +2,7 @@ package de.schichttauschen.web.service;
 
 import de.schichttauschen.web.data.entity.Account;
 import de.schichttauschen.web.data.repository.AccountRepository;
-import de.schichttauschen.web.data.vo.rest.AccountRegistration;
+import de.schichttauschen.web.data.vo.rest.RestAccountRegistration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,15 +17,15 @@ public class AccountRegistrationService {
     private final EmailSenderService emailSenderService;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean register(AccountRegistration accountRegistration) {
-        if (accountRepository.existsByLoginOrEmail(accountRegistration.getLogin(), accountRegistration.getEmail()))
+    public boolean register(RestAccountRegistration restAccountRegistration) {
+        if (accountRepository.existsByLoginOrEmail(restAccountRegistration.getLogin(), restAccountRegistration.getEmail()))
             return false;
         var account = accountRepository.save(Account.builder()
-                .login(accountRegistration.getLogin())
-                .name(accountRegistration.getName())
-                .email(accountRegistration.getEmail())
+                .login(restAccountRegistration.getLogin())
+                .name(restAccountRegistration.getName())
+                .email(restAccountRegistration.getEmail())
                 .pendingActionKey(UUID.randomUUID())
-                .password(passwordEncoder.encode(accountRegistration.getPassword()))
+                .password(passwordEncoder.encode(restAccountRegistration.getPassword()))
                 .active(false)
                 .build());
         return emailSenderService.sendAccountActivationMail(account);

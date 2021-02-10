@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountRegistration {
+public class RestAccountRegistration {
     @NonNull
     private String login;
     @NonNull

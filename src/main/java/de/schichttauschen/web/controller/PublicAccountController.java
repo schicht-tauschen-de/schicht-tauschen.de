@@ -3,10 +3,10 @@ package de.schichttauschen.web.controller;
 import de.schichttauschen.web.aspect.RateLimited;
 import de.schichttauschen.web.data.entity.Account;
 import de.schichttauschen.web.data.vo.UserPrincipal;
-import de.schichttauschen.web.data.vo.rest.AccountInfo;
-import de.schichttauschen.web.data.vo.rest.AccountRegistration;
-import de.schichttauschen.web.data.vo.rest.BooleanResponse;
-import de.schichttauschen.web.data.vo.rest.LoginResponse;
+import de.schichttauschen.web.data.vo.rest.RestAccountInfo;
+import de.schichttauschen.web.data.vo.rest.RestAccountRegistration;
+import de.schichttauschen.web.data.vo.rest.RestBooleanResponse;
+import de.schichttauschen.web.data.vo.rest.RestLoginResponse;
 import de.schichttauschen.web.service.AccountRegistrationService;
 import de.schichttauschen.web.service.BooleanResponseBuilderFactory;
 import de.schichttauschen.web.service.TranslationService;
@@ -32,8 +32,8 @@ public class PublicAccountController {
 
     @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
     @PostMapping("/register")
-    public BooleanResponse register(@RequestBody AccountRegistration accountRegistration) {
-        boolean status = accountRegistrationService.register(accountRegistration);
+    public RestBooleanResponse register(@RequestBody RestAccountRegistration restAccountRegistration) {
+        boolean status = accountRegistrationService.register(restAccountRegistration);
         return booleanResponseBuilderFactory.get()
                 .status(status)
                 .trueMessage("action.register.success")
@@ -43,7 +43,7 @@ public class PublicAccountController {
 
     @RateLimited(requests = 3, interval = RateLimited.Interval.Minutes)
     @GetMapping("/activate/{accountId}/{activationKey}")
-    public BooleanResponse activate(@PathVariable UUID accountId, @PathVariable UUID activationKey) {
+    public RestBooleanResponse activate(@PathVariable UUID accountId, @PathVariable UUID activationKey) {
         boolean status = accountRegistrationService.activate(accountId, activationKey);
         return booleanResponseBuilderFactory.get()
                 .status(status)
@@ -54,19 +54,19 @@ public class PublicAccountController {
 
     @RateLimited(requests = 5, interval = RateLimited.Interval.Minutes)
     @PostMapping("/login")
-    public LoginResponse login(@RequestParam String login, @RequestParam String password) {
+    public RestLoginResponse login(@RequestParam String login, @RequestParam String password) {
         try {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login, password);
             Authentication auth = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
             Account account = ((UserPrincipal) auth.getPrincipal()).getAccount();
-            return LoginResponse.builder()
+            return RestLoginResponse.builder()
                     .authenticated(true)
                     .message(translationService.get("action.login.success", account.getName()))
-                    .account(AccountInfo.buildFrom(account))
+                    .account(RestAccountInfo.buildFrom(account))
                     .build();
         } catch (BadCredentialsException e) {
-            return LoginResponse.builder()
+            return RestLoginResponse.builder()
                     .authenticated(false)
                     .message(translationService.get("action.login.failed"))
                     .build();

@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountInfo {
+public class RestAccountInfo {
     private String login;
     private String email;
     private String name;
 
-    public static AccountInfo buildFrom(Account account) {
-        return AccountInfo.builder()
+    public static RestAccountInfo buildFrom(Account account) {
+        return RestAccountInfo.builder()
                 .login(account.getLogin())
                 .email(account.getEmail())
                 .name(account.getName())
