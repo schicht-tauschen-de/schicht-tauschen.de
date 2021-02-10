@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org">
 <div layout:fragment="content">
-    <header class="masthead mb-auto">
-        <div class="inner">
-            <h3 class="masthead-brand">schicht-tauschen.de</h3>
-            <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link active" href="#">Home</a>
-            </nav>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <img th:src="@{/img/st_logo.png}" alt="Schicht-Tauschen.de - Logo">
+                </div>
+                <div class="col-6">
+                    <div class="page-title-container">
+                        <span class="page-title">Schicht-Tauschen.de</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -70,7 +76,9 @@
     </main>
 
     <footer class="footer">
-        <p class="text-muted">&copy; 2021 by <a href="https://janbrodda.de">Jan Brodda</a>
+        <div class="container-fluid">
+            <p class="text-muted">&copy; 2021 by <a href="https://janbrodda.de">Jan Brodda</a>
+        </div>
     </footer>
 </div>
 </html>

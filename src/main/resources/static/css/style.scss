@@ -246,6 +246,19 @@ h2 {
    Header Navigation
    ========================================================================== */
 
+.header {
+    .page-title-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        .page-title {
+            @include font-size($h2-size);
+            color: #000000;
+        }
+    }
+}
+
 
 /* ==========================================================================
    Footer
