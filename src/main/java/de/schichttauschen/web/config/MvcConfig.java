@@ -17,9 +17,11 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+    /**
+     * Here you can add simple view controllers, for which you don't want to create a controller class
+     */
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/login").setViewName("login");
+        //registry.addViewController("/index").setViewName("index");
     }
 
     @Override
