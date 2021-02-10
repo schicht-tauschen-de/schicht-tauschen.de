@@ -123,4 +123,15 @@
             <column name="active">true</column>
         </insert>
     </changeSet>
+
+    <changeSet id="add-company-to-offer" author="janxb">
+        <addColumn tableName="offer">
+            <column name="company_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <createIndex tableName="offer" indexName="idx_offer_company">
+            <column name="company_id"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>

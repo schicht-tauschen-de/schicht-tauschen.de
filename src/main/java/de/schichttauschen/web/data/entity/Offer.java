@@ -24,6 +24,10 @@ public class Offer {
     private LocalDateTime endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_account_id")
     private Account fromAccount;
 
