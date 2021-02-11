@@ -8,8 +8,43 @@
     <title>schicht-tauschen.de</title>
 </head>
 <body>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="brand-image-container">
+                    <img th:src="@{/img/st_logo.png}" class="img-fluid brand-image" alt="Schicht-Tauschen.de - Logo">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="page-nav-container" sec:authorize="isAuthenticated()">
+                    <nav class="nav">
+                        <a class="nav-link" href="#" title="Neue Schicht hinzufügen">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                        <a class="nav-link" href="#" title="Profil">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <a class="nav-link" href="/logout" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </nav>
+                </div>
+                <div class="page-title-container" sec:authorize="!isAuthenticated()">
+                    <span class="page-title">Schicht-Tauschen.de</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <div class="layout" layout:fragment="content"></div>
+
+<footer class="footer">
+    <div class="container-fluid">
+        <p class="text-muted">&copy; 2021 by <a href="https://janbrodda.de">Jan Brodda</a>
+    </div>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>

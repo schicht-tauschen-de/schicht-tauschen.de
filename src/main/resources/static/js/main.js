@@ -72,6 +72,9 @@ vueStartPage = new Vue({
                 success: function (data) {
                     that.isError = !data.authenticated;
                     that.message = data.message;
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
                 },
                 error: function() {
                     that.isError = true;

@@ -247,11 +247,17 @@ h2 {
    ========================================================================== */
 
 .header {
+    .brand-image-container {
+        padding: 0.5rem 0;
+    }
+    .page-nav-container,
     .page-title-container {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
+    }
+    .page-title-container {
         .page-title {
             @include font-size($h2-size);
             color: #000000;
