@@ -61,30 +61,34 @@ vueStartPage = new Vue({
         },
         doLogin: function () {
             let that = this;
-            $.ajax({
-                url: accountEndpoint + '/login',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    login: that.userName,
-                    password: that.password
-                },
-                success: function (data) {
-                    that.isError = !data.authenticated;
-                    that.message = data.message;
-                    setTimeout(function() {
-                        location.reload();
-                    }, 500);
-                },
-                error: function() {
-                    that.isError = true;
-                    that.message = 'Beim Login ist ein Fehler aufgetreten';
-                }
-            });
+            if(that.validateLoginRegistrationForm()) {
+                $.ajax({
+                    url: accountEndpoint + '/login',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        login: that.userName,
+                        password: that.password
+                    },
+                    success: function (data) {
+                        that.isError = !data.authenticated;
+                        that.message = data.message;
+                        if(data.authenticated) {
+                            setTimeout(function() {
+                                location.reload();
+                            }, 500);
+                        }
+                    },
+                    error: function() {
+                        that.isError = true;
+                        that.message = 'Beim Login ist ein Fehler aufgetreten';
+                    }
+                });
+            }
         },
         doRegistration: function () {
             let that = this;
-            if(that.validateRegistrationForm()) {
+            if(that.validateLoginRegistrationForm()) {
                 $.ajax({
                     url: accountEndpoint + '/register',
                     type: 'POST',
@@ -107,7 +111,7 @@ vueStartPage = new Vue({
                 });
             }
         },
-        validateRegistrationForm: function () {
+        validateLoginRegistrationForm: function () {
             let isValid = true;
             this.formValidationErrors = {
                 fullName: null,
@@ -121,12 +125,12 @@ vueStartPage = new Vue({
                 isValid = false;
             }
 
-            if(this.fullName === null) {
+            if(this.fullName === null && this.context === 'registration') {
                 this.formValidationErrors.fullName = getTranslatedMessage('formValidation.error.fullName');
                 isValid = false;
             }
 
-            if(this.email === null) {
+            if(this.email === null && this.context === 'registration') {
                 this.formValidationErrors.email = getTranslatedMessage('formValidation.error.email');
                 isValid = false;
             }
