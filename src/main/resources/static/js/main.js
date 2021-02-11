@@ -1,4 +1,5 @@
 let translatedMessages = null;
+const accountEndpoint = '/api/public/account';
 
 function updateTranslatedMessages() {
     $.ajax({
@@ -22,7 +23,7 @@ function getTranslatedMessage(key) {
 }
 
 let vueStartPage = null;
-const accountEndpoint = '/api/public/account';
+
 vueStartPage = new Vue({
     el: '#vueStartPage',
     data: {
@@ -145,3 +146,11 @@ vueStartPage = new Vue({
     }
 });
 
+let vueSearch = null;
+vueSearch = new Vue({
+    el: '#vueSearch',
+    data: {},
+    methods: {
+
+    }
+});

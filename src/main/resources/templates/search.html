@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org">
 <div layout:fragment="content">
-    SEARCH
+    <main id="vueSearch" v-cloak>
+        <div class="container">
+            <h1 th:text="#{headline.search}"></h1>
+        </div>
+    </main>
 </div>
 </html>

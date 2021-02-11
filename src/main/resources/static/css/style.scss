@@ -32,8 +32,7 @@ $grid-breakpoints: (
 $primary-color: #ff8c00;
 $secondary-color: #999;
 $primary-background-color: #dedede;
-//$font-color: #5f5c52;
-$font-color: #fff;
+$font-color: #5f5c52;
 
 /* ==========================================================================
    Fonts
@@ -283,6 +282,7 @@ h2 {
    ========================================================================== */
 
 .startpage {
+    color: #fff;
     background-image: url(../img/header_image.jpg);
     background-size: cover;
     display: flex;
