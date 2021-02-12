@@ -61,6 +61,9 @@ $font-size-big: ($font-size-bigger * 1.2);
 $h1-size: 2.25rem;
 $h2-size: (2.8rem * 0.7);
 $h3-size: ($h2-size * 0.7);
+$h4-size: ($h3-size * 0.7);
+$h5-size: ($h4-size * 0.7);
+$h6-size: ($h5-size * 0.7);
 
 $h1-small-size: ($h1-size * 0.8);
 $h2-small-size: ($h2-size * 0.8);
@@ -106,6 +109,7 @@ body {
     @include font-size($font-size-normal);
     line-height: 1.7;
     color: $font-color;
+    background-color: #f4f4f4;
 }
 
 
@@ -246,6 +250,9 @@ h2 {
    ========================================================================== */
 
 .header {
+    background-color: #fff;
+    z-index: 100;
+    box-shadow: $z5;
     .brand-image-container {
         padding: 0.5rem 0;
     }
@@ -271,6 +278,8 @@ h2 {
 
 .footer {
     margin-top: auto;
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
     .text-muted {
         display: block;
         padding: 0.5rem 1rem;
@@ -291,17 +300,15 @@ h2 {
     @include media-breakpoint-up(sm) {
         height: 100%;
     }
+    .container-content {
+        background-color: rgba(0,0,0,0.6);
+        width: 100%;
+        padding: 2rem 0;
+        box-shadow: $z5;
+    }
+
 }
 
-/* ==========================================================================
-   Article
-   ========================================================================== */
-
-.container-content {
-    background-color: rgba(0,0,0,0.6);
-    width: 100%;
-    padding: 2rem 0;
-}
 
 /* ==========================================================================
    Divider
@@ -325,3 +332,28 @@ h2 {
         margin-left: auto;
     }
 }
+
+/* ==========================================================================
+   Search
+   ========================================================================== */
+
+.p-search {
+    padding-top: 1rem;
+    .sidenav {
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        background-color: #f8f9fa;
+        .filter-head {
+            @include font-size($h3-size);
+        }
+    }
+    .shift-item {
+        background-color: #fff;
+        box-shadow: $z3;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        .shift-head {
+            @include font-size($h2-size);
+        }
+    }
+}
+
