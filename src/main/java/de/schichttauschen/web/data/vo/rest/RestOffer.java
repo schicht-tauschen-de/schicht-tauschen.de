@@ -1,5 +1,6 @@
 package de.schichttauschen.web.data.vo.rest;
 
+import de.schichttauschen.web.data.entity.Offer;
 import de.schichttauschen.web.data.entity.OfferType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,23 +23,14 @@ public class RestOffer {
     private RestAccountInfo toAccount;
     private RestCompany company;
 
-    public static RestOffer fromDatabaseObject(de.schichttauschen.web.data.entity.Offer offer) {
+    public static RestOffer fromOffer(Offer offer) {
         return RestOffer.builder()
                 .type(offer.getType())
                 .startDate(offer.getStartDate())
                 .endDate(offer.getEndDate())
-                .fromAccount(offer.getFromAccount() == null ? null :
-                        RestAccountInfo.builder()
-                                .name(offer.getFromAccount().getName())
-                                .build())
-                .toAccount(offer.getToAccount() == null ? null :
-                        RestAccountInfo.builder()
-                                .name(offer.getToAccount().getName())
-                                .build())
-                .company(RestCompany.builder()
-                        .id(offer.getCompany().getId())
-                        .name(offer.getCompany().getName())
-                        .build())
+                .fromAccount(offer.getFromAccount() == null ? null : RestAccountInfo.fromAccountPublic(offer.getFromAccount()))
+                .toAccount(offer.getToAccount() == null ? null : RestAccountInfo.fromAccountPublic(offer.getToAccount()))
+                .company(RestCompany.fromDepartment(offer.getDepartment()))
                 .build();
     }
 }

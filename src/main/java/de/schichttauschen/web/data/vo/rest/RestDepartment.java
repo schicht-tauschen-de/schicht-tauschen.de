@@ -12,16 +12,16 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestCompany {
+public class RestDepartment {
     private UUID id;
     private String name;
-    private RestDepartment department;
+    private String description;
 
-    public static RestCompany fromDepartment(Department department) {
-        return RestCompany.builder()
-                .id(department.getCompany().getId())
-                .name(department.getCompany().getName())
-                .department(RestDepartment.fromDepartment(department))
+    public static RestDepartment fromDepartment(Department department) {
+        return RestDepartment.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .description(department.getDescription())
                 .build();
     }
 }

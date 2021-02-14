@@ -22,4 +22,10 @@ public class RestAccountInfo {
                 .name(account.getName())
                 .build();
     }
+
+    public static RestAccountInfo fromAccountPublic(Account account) {
+        return RestAccountInfo.builder()
+                .name(account.getName())
+                .build();
+    }
 }
