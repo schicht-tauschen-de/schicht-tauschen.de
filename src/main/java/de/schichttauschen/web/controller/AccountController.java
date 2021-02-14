@@ -26,7 +26,7 @@ public class AccountController {
 
     @GetMapping("details")
     public RestAccountInfo details() {
-        return RestAccountInfo.buildFrom(
+        return RestAccountInfo.fromAccount(
                 ((UserPrincipal) SecurityContextHolder
                         .getContext()
                         .getAuthentication()

@@ -63,7 +63,7 @@ public class PublicAccountController {
             return RestLoginResponse.builder()
                     .authenticated(true)
                     .message(translationService.get("action.login.success", account.getName()))
-                    .account(RestAccountInfo.buildFrom(account))
+                    .account(RestAccountInfo.fromAccount(account))
                     .build();
         } catch (BadCredentialsException e) {
             return RestLoginResponse.builder()

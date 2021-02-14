@@ -15,7 +15,7 @@ public class RestAccountInfo {
     private String email;
     private String name;
 
-    public static RestAccountInfo buildFrom(Account account) {
+    public static RestAccountInfo fromAccount(Account account) {
         return RestAccountInfo.builder()
                 .login(account.getLogin())
                 .email(account.getEmail())
