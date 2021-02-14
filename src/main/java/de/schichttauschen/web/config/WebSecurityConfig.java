@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and().authorizeRequests().antMatchers("/css/*", "/js/*", "/img/*").permitAll()
 
-                .and().authorizeRequests().antMatchers("/h2-console", "/h2-console/*").permitAll()
+                .and().authorizeRequests().antMatchers("/api-docs", "/api-docs/**", "/swagger-ui/*").permitAll()
 
                 .and().authorizeRequests().anyRequest().fullyAuthenticated()
 
