@@ -134,4 +134,16 @@
             <column name="company_id"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="rename-offer-company-to-department" author="janxb">
+        <dropIndex tableName="offer" indexName="idx_offer_company"/>
+        <renameColumn tableName="offer" oldColumnName="company_id" newColumnName="department_id"/>
+        <addForeignKeyConstraint baseTableName="offer" baseColumnNames="department_id"
+                                 constraintName="fk_offer_department"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"/>
+        <createIndex tableName="offer" indexName="idx_offer_department">
+            <column name="department_id"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>
