@@ -1,26 +1,38 @@
-let translatedMessages = null;
-const accountEndpoint = '/api/public/account';
-
-function updateTranslatedMessages() {
-    $.ajax({
-        url: '/api/public/messages',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            translatedMessages = data;
+let Translation = function() {
+    let translatedMessage = null;
+    this.init = function() {
+        let that = this;
+        $.ajax({
+            url: '/api/public/messages',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                that.translatedMessages  = data;
+            }
+        });
+    };
+    this.getMessage = function(key, parameters) {
+        if(typeof this.translatedMessages[key] === 'undefined') {
+            return 'Missing Key >[key]<';
+        } else {
+            let message = this.translatedMessages[key];
+            if(parameters && parameters.length > 0) {
+                for(let i = 0; i < parameters.length; i++) {
+                    let regEx = new RegExp('\\{' + i + '\\}', 'g');
+                    message = message.replace(regEx, parameters[i]);
+                }
+            }
+            return message;
         }
-    });
-}
-
-$(document).ready(updateTranslatedMessages());
-
-function getTranslatedMessage(key) {
-    if(typeof translatedMessages[key] === 'undefined') {
-        return 'Missing Key [key]';
-    } else {
-        return translatedMessages[key];
     }
-}
+};
+
+let translationService = new Translation();
+translationService.init();
+
+const publicAccountEndpoint = '/api/public/account';
+const accountEndpoint = '/api/account';
+const offerEndpoint = '/api/offer';
 
 let vueStartPage = null;
 
@@ -64,7 +76,7 @@ vueStartPage = new Vue({
             let that = this;
             if(that.validateLoginRegistrationForm()) {
                 $.ajax({
-                    url: accountEndpoint + '/login',
+                    url: publicAccountEndpoint + '/login',
                     type: 'POST',
                     dataType: 'json',
                     data: {
@@ -91,7 +103,7 @@ vueStartPage = new Vue({
             let that = this;
             if(that.validateLoginRegistrationForm()) {
                 $.ajax({
-                    url: accountEndpoint + '/register',
+                    url: publicAccountEndpoint + '/register',
                     type: 'POST',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -122,22 +134,22 @@ vueStartPage = new Vue({
             };
 
             if(this.userName === null) {
-                this.formValidationErrors.userName = getTranslatedMessage('formValidation.error.userName');
+                this.formValidationErrors.userName = translationService.getMessage('formValidation.error.userName');
                 isValid = false;
             }
 
             if(this.fullName === null && this.context === 'registration') {
-                this.formValidationErrors.fullName = getTranslatedMessage('formValidation.error.fullName');
+                this.formValidationErrors.fullName = translationService.getMessage('formValidation.error.fullName');
                 isValid = false;
             }
 
             if(this.email === null && this.context === 'registration') {
-                this.formValidationErrors.email = getTranslatedMessage('formValidation.error.email');
+                this.formValidationErrors.email = translationService.getMessage('formValidation.error.email');
                 isValid = false;
             }
 
             if(this.password === null) {
-                this.formValidationErrors.password = getTranslatedMessage('formValidation.error.password');
+                this.formValidationErrors.password = translationService.getMessage('formValidation.error.password');
                 isValid = false;
             }
 
@@ -149,8 +161,69 @@ vueStartPage = new Vue({
 let vueSearch = null;
 vueSearch = new Vue({
     el: '#vueSearch',
-    data: {},
+    data: {
+        offerTypes: [],
+        companies: [],
+        departments: [],
+        offers: [],
+        selectedOfferType: 'OFFER',
+        selectedCompany: null,
+        startDate: null,
+        endDate: null
+    },
+    mounted: function() {
+        this.getFilterData();
+        this.startDate = new Date();
+        this.endDate = new Date();
+        this.endDate.setDate(this.startDate.getDate() + 7);
+    },
     methods: {
+        formatDateToInputDate: function(date) {
+          return date.toISOString().split("T")[0];
+        },
+        getFilterData: function() {
+            let that = this;
+            $.ajax({
+                url: accountEndpoint + '/details',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if(data.companies.length > 0) {
+                        for(let i = 0; i < data.companies.length; i++) {
+                            that.companies.push(data.companies[i].company);
+                        }
+                    }
+                }
+            });
+        },
+        isCompanySelected: function(company) {
+            if(this.selectedCompany === null) {
+                return false;
+            }
+            return this.selectedCompany.id === company.id;
+        },
+        selectCompany: function(company) {
+            let that = this;
+            that.selectedCompany = company;
+            let searchParameter = {
+                type: that.selectedOfferType,
+                companyId: company.id,
+                departmentId: company.department.id,
+                startDate: that.startDate,
+                endDate: that.endDate,
+                page: 0,
+                pageSize: 10
+            };
+            $.ajax({
+                url: offerEndpoint + '/search',
+                type: 'GET',
+                data: searchParameter,
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Data loaded')
+                }
+            });
 
+        }
     }
 });

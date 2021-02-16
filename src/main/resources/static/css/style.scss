@@ -271,6 +271,31 @@ h2 {
     }
 }
 
+/* ==========================================================================
+   Row Label/Value
+   ========================================================================== */
+.row-label-value {
+    padding: 1px 0;
+    @include media-breakpoint-up(sm) {
+        display: flex;
+    }
+    .col-label {
+        font-weight: $font-weight-bold;
+        @include media-breakpoint-up(sm) {
+            flex: 0 0 16.6666666667%;
+            max-width: 16.6666666667%;
+        }
+    }
+    .col-value {
+        @include media-breakpoint-down(sm) {
+            margin-left: 15px;
+        }
+        @include media-breakpoint-up(sm) {
+            flex: 0 0 66.6666666667%;
+            max-width: 66.6666666667%;
+        }
+    }
+}
 
 /* ==========================================================================
    Footer
@@ -339,6 +364,10 @@ h2 {
 
 .p-search {
     padding-top: 1rem;
+    .row-label-value {
+        padding: 1rem;
+        background-color: $primary-color;
+    }
     .sidenav {
         box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
         background-color: #f8f9fa;
@@ -347,6 +376,10 @@ h2 {
         }
         label {
             font-weight: $font-light;
+        }
+        button {
+            padding: 10px;
+            margin: 5px 0;
         }
     }
     .shift-item {
