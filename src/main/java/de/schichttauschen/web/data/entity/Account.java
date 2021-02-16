@@ -1,9 +1,6 @@
 package de.schichttauschen.web.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "departments")
 public class Account {
 
     @Id
@@ -38,7 +36,7 @@ public class Account {
     @Column
     private boolean active;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     private Set<AccountDepartment> departments;
 }
