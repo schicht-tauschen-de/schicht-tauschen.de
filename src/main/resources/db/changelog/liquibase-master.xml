@@ -146,4 +146,43 @@
             <column name="department_id"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="fix-dummy-account-id" author="janxb">
+        <sql>
+            update account
+            set id = '425f1477-daa1-4727-9f46-09a928936ce4'
+            where login = 'test'
+        </sql>
+    </changeSet>
+
+    <changeSet id="dummy-data-company-departments" author="janxb">
+        <insert tableName="company">
+            <column name="id">ceaf9e53-c568-4eb1-bbc2-205dc43f82cb</column>
+            <column name="name">Billigmarkt GmbH</column>
+        </insert>
+        <insert tableName="company">
+            <column name="id">358aa140-5732-469c-90e0-53c51c6580ef</column>
+            <column name="name">Restaurant zur Grünen Rose</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">4901db47-2d84-44f7-ab4e-b374a4a04335</column>
+            <column name="name">Kasse</column>
+            <column name="company_id">ceaf9e53-c568-4eb1-bbc2-205dc43f82cb</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">c4bb1447-0b3f-4143-aa7f-31f7f40c88fb</column>
+            <column name="name">Küche</column>
+            <column name="company_id">358aa140-5732-469c-90e0-53c51c6580ef</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">56c454a4-05ae-40b8-96f8-0b1c11563ce4</column>
+            <column name="name">Kundenservice</column>
+            <column name="company_id">358aa140-5732-469c-90e0-53c51c6580ef</column>
+        </insert>
+        <insert tableName="account_department">
+            <column name="account_id">425f1477-daa1-4727-9f46-09a928936ce4</column>
+            <column name="department_id">56c454a4-05ae-40b8-96f8-0b1c11563ce4</column>
+            <column name="employee_number">57664</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
