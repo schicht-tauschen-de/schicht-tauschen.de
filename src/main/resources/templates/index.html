@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org">
+<html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="content">
     <main id="vueStartPage" class="startpage" v-cloak>
         <article class="container-content">
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="password" th:text="#{password}">Password</label>
-                                    <input type="password" id="password" v-model="password" class="form-control" :class="{ 'is-invalid' : formValidationErrors.password }" >
+                                    <input :class="{ 'is-invalid' : formValidationErrors.password }" class="form-control" id="password" type="password" v-model="password">
                                     <div class="invalid-feedback" v-if="formValidationErrors.password" v-html="formValidationErrors.password"></div>
                                 </div>
                                 <button type="submit" class="button button-primary">
