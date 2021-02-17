@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org">
+<html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="content">
     <main id="vueSearch" class="p-search" v-cloak>
         <div class="container-fluid">
@@ -34,11 +34,11 @@
                         <div class="col-12">
                             <label class="col-form-label">Zeitfenster</label>
                             <div class="form-row">
-                                <div class="col-4">
-                                    <input type="date" class="form-control" v-model="formatDateToInputDate(startDate)">
+                                <div class="col-2">
+                                    <vuejs-datepicker bootstrap-styling="true" calendar-button="true" calendar-button-icon="fas fa-calendar-alt" v-model="startDate"></vuejs-datepicker>
                                 </div>
-                                <div class="col-4">
-                                    <input type="date" class="form-control" v-model="formatDateToInputDate(endDate)">
+                                <div class="col-2">
+                                    <vuejs-datepicker bootstrap-styling="true" calendar-button="true" calendar-button-icon="fas fa-calendar-alt" v-model="endDate"></vuejs-datepicker>
                                 </div>
                             </div>
                         </div>
@@ -78,5 +78,8 @@
             </div>
         </div>
     </main>
+    <th:block layout:fragment="scripts">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-datepicker/1.6.2/vuejs-datepicker.min.js"></script>
+    </th:block>
 </div>
 </html>

@@ -161,6 +161,9 @@ vueStartPage = new Vue({
 let vueSearch = null;
 vueSearch = new Vue({
     el: '#vueSearch',
+    components: {
+        vuejsDatepicker
+    },
     data: {
         offerTypes: [],
         companies: [],
