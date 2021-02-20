@@ -298,6 +298,19 @@ h2 {
 }
 
 /* ==========================================================================
+   Datepicker
+   ========================================================================== */
+.vdp-datepicker {
+    .input-group {
+        display: flex;
+        .vdp-datepicker__calendar-button {
+            order: 1;
+            margin-left: 5px;
+        }
+    }
+}
+
+/* ==========================================================================
    Footer
    ========================================================================== */
 
@@ -364,23 +377,12 @@ h2 {
 
 .p-search {
     padding-top: 1rem;
+    .filter-container {
+        margin: 1rem 0;
+    }
     .row-label-value {
         padding: 1rem;
         background-color: $primary-color;
-    }
-    .sidenav {
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-        background-color: #f8f9fa;
-        .filter-head {
-            @include font-size($h4-size);
-        }
-        label {
-            font-weight: $font-light;
-        }
-        button {
-            padding: 10px;
-            margin: 5px 0;
-        }
     }
     .shift-item {
         background-color: #fff;
@@ -391,5 +393,8 @@ h2 {
             @include font-size($h3-size);
         }
     }
-}
+    .timerange-container {
+        margin: 0.5rem 0;
 
+    }
+}

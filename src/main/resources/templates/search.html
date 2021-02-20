@@ -2,78 +2,84 @@
 <html lang="de" layout:decorate="~{base}" xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="content">
     <main id="vueSearch" class="p-search" v-cloak>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <nav class="sidenav col-md-3 col-lg-2">
-                    <div class="filter-container">
+                <div class="col-12">
+                    <h1 th:text="#{headline.search}"></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <article class="filter-container">
                         <span class="filter-head" th:text="#{filter.head.company}"></span>
-                        <ul class="nav flex-column">
+                        <ul class="nav">
                             <li class="nav-item" v-for="company in companies">
                                 <button class="button" @click="selectCompany(company)" :class="isCompanySelected(company) ? 'button-primary' : 'button-link'" v-html="company.name"></button>
                             </li>
                         </ul>
-                    </div>
-                </nav>
-                <div class="col-md-9 col-lg-10">
-                    <h1 th:text="#{headline.search}"></h1>
-                    <div class="row" v-if="selectedCompany == null">
-                        <div class="col-12">
-                            <article class="search-intro">
-                                <h2 th:text="#{search.intro.headline}"></h2>
-                                <p th:text="#{search.intro.subline}"></p>
-                            </article>
+                    </article>
+                </div>
+            </div>
+            <div class="row" v-if="selectedCompany == null">
+                <div class="col-12">
+                    <article class="search-intro">
+                        <h2 th:text="#{search.intro.headline}"></h2>
+                        <p th:text="#{search.intro.subline}"></p>
+                    </article>
+                </div>
+            </div>
+            <div class="row" v-else>
+                <div class="col-12">
+                    <article class="selected-company-container">
+                        <div class="row-label-value">
+                            <span class="col-label" th:text="#{search.selected.label}"></span>
+                            <span class="col-value">{{selectedCompany.name}} - {{selectedCompany.department.name}}</span>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-12">
+                    <div class="form-row timerange-container">
+                        <label class="col-form-label col-4" th:text="#{search.selected.timerange}"></label>
+                        <div class="col-4">
+                            <vuejs-datepicker bootstrap-styling="true" calendar-button="true" calendar-button-icon="fas fa-calendar-alt" v-model="startDate"></vuejs-datepicker>
+                        </div>
+                        <div class="col-4">
+                            <vuejs-datepicker bootstrap-styling="true" calendar-button="true" calendar-button-icon="fas fa-calendar-alt" v-model="endDate"></vuejs-datepicker>
                         </div>
                     </div>
-                    <div class="row" v-else>
-                        <div class="col-12">
-                            <div class="row-label-value">
-                                <span class="col-label" th:text="#{search.selected.label}">Aktuell ausgewählt</span>
-                                <span class="col-value">{{selectedCompany.name}} - {{selectedCompany.department.name}}</span>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <label class="col-form-label">Zeitfenster</label>
-                            <div class="form-row">
-                                <div class="col-2">
-                                    <vuejs-datepicker bootstrap-styling="true" calendar-button="true" calendar-button-icon="fas fa-calendar-alt" v-model="startDate"></vuejs-datepicker>
-                                </div>
-                                <div class="col-2">
-                                    <vuejs-datepicker bootstrap-styling="true" calendar-button="true" calendar-button-icon="fas fa-calendar-alt" v-model="endDate"></vuejs-datepicker>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="shift-item">
-                                <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
-                            </article>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="shift-item">
-                                <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
-                            </article>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="shift-item">
-                                <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
-                            </article>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="shift-item">
-                                <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
-                            </article>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="shift-item">
-                                <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
-                            </article>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="shift-item">
-                                <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
-                            </article>
-                        </div>
-                    </div>
-
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <article class="shift-item">
+                        <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
+                    </article>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <article class="shift-item">
+                        <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
+                    </article>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <article class="shift-item">
+                        <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
+                    </article>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <article class="shift-item">
+                        <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
+                    </article>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <article class="shift-item">
+                        <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
+                    </article>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <article class="shift-item">
+                        <span class="shift-head">10.02.2021 - 14:00 - 16:00</span>
+                    </article>
                 </div>
             </div>
         </div>
